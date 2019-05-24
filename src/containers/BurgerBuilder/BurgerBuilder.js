@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Aux from '../../hoc/Auxiliary';
+import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Burger from '../../components/Burger/Burger';
 import Controls from '../../components/Burger/Controls/Controls';
 import Modal from '../../components/UI/Modal/Modal';
@@ -72,6 +72,10 @@ class BurgerBuilder extends Component {
         this.setState({ ordered: false });
     }
 
+    continueHandler = () => {
+        alert("You continue");
+    }
+
     render() {
         let disabled = { ...this.state.ingridients };
         for (let key in disabled) {
@@ -83,9 +87,16 @@ class BurgerBuilder extends Component {
                     show={this.state.ordered}
                     modalClosed={this.cancelHandler}
                 >
-                    <Summary ingridients={this.state.ingridients} />
+                    <Summary
+                        price={this.state.price}
+                        ingridients={this.state.ingridients}
+                        canceled={this.cancelHandler}
+                        continued={this.continueHandler}
+                    />
                 </Modal>
-                <Burger ingridients={this.state.ingridients} />
+                <Burger
+                    ingridients={this.state.ingridients}
+                />
                 <Controls
                     burger={{ ...this.state }}
                     disabled={disabled}
